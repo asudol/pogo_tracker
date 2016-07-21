@@ -5,8 +5,8 @@ It will accept location data and notify a player if there is a desired location 
  * This is unofficial - USE AT YOUR OWN RISK !
  * No bot/farming code included !\
 
- ## Usage
- To come
+## Usage
+To come
  
 ## Requirements
  * Python 2 or 3
