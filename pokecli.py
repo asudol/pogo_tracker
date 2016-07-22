@@ -13,6 +13,11 @@ import getpass
 
 # add directory of the pgoapi to PATH so it will be found
 sys.path.append(os.path.normpath(os.path.join(os.path.realpath(__file__), '..', '.\\pgoapi')))
+# add our path
+sys.path.append(os.path.normpath(os.path.join(os.path.realpath(__file__), '..')))
+
+# grab our files
+import poketracker
 
 # import Pokemon Go API lib
 from pgoapi import pgoapi
@@ -67,8 +72,7 @@ def init_config():
 
     # Read passed in Arguments
     required = lambda x: not x in load
-    parser.add_argument("-a", "--auth_service", help="Auth Service ('ptc' or 'google')",
-        required=required("auth_service"))
+    parser.add_argument("-a", "--auth_service", help="Auth Service ('ptc' or 'google')", required=required("auth_service"))
     parser.add_argument("-u", "--username", help="Username", required=required("username"))
     parser.add_argument("-p", "--password", help="Password")
     parser.add_argument("-l", "--location", help="Location", required=required("location"))
@@ -124,6 +128,12 @@ def main():
     
     if not api.login(config.auth_service, config.username, config.password):
         return
+
+    pt = poketracker.PokeTracker()
+    pt.set_pos(*position)
+
+    while True:
+        pt.main_loop()
 
 if __name__ == '__main__':
     main()
